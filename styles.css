@@ -19,20 +19,20 @@ body {
     box-sizing: border-box;
 }
 
-/* Navbar styling */
+/* Navbar styling - make transparent */
 nav {
-    background-color: none;
+    background-color: transparent;
     padding: 10px 0 0 0;
 }
 
-/* Navbar container adjustments */
+/* Navbar container - make transparent but preserve structure */
 nav .container {
     border: none;
     margin-top: 0;
     padding-left: 0;
     padding-right: 0;
+    background-color: transparent;
 }
-
 /* Reset list styling */
 nav ul {
     list-style-type: none;
@@ -55,18 +55,19 @@ nav ul li a {
     color: #ffffff;
     font-weight: normal;
     padding: 5px 10px;
-    border: 1px solid #000000;
+    border: 1px solid rgba(51, 51, 51, 0.5);
     display: block;
     text-align: center;
     box-sizing: border-box;
+    background-color: transparent;
 }
 
 nav ul li a:hover {
-    background-color: #333333;
+    background-color: rgba(51, 51, 51, 0.3);
 }
 
 nav ul li a.active {
-    border: 1px solid #333333;
+    border: 1px solid rgba(51, 51, 51, 0.8);
 }
 
 h1, h2, h3 {
