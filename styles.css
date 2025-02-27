@@ -7,57 +7,49 @@ body {
     background-color: #000000;
 }
 
-/* Prevent text from breaking across lines */
-.no-break {
-    white-space: nowrap;
-    color: #cccccc; /* Keeping the same color that was used for code */
-}
-
+/* Base container styling */
 .container {
     width: 80%;
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #333333;
-    margin-top: 20px;
+    margin-top: 0;
     background-color: #000000;
+    box-sizing: border-box;
 }
 
+/* Navbar styling */
 nav {
     background-color: #000000;
-    padding: 10px 0;
-    /* Removed the border from nav */
+    padding: 10px 0 0 0;
 }
 
-/* Update the navbar container to match main container width */
+/* Navbar container adjustments */
 nav .container {
     border: none;
     margin-top: 0;
-    width: 80%;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 10px 0;
+    padding-left: 0;
+    padding-right: 0;
 }
 
-/* Make navbar items equal width and centered */
+/* Reset list styling */
 nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    width: 100%;
 }
 
+/* Make list items take equal width */
 nav ul li {
-    display: block;
     flex: 1;
-    min-width: 120px; /* Minimum width for each item */
-    text-align: center;
     margin: 0;
-    padding: 5px;
+    padding: 0;
 }
 
+/* Style the links */
 nav ul li a {
     text-decoration: none;
     color: #ffffff;
@@ -65,7 +57,7 @@ nav ul li a {
     padding: 5px 10px;
     border: 1px solid #000000;
     display: block;
-    width: 100%;
+    text-align: center;
     box-sizing: border-box;
 }
 
@@ -77,17 +69,6 @@ nav ul li a.active {
     border: 1px solid #333333;
 }
 
-/* Responsive layout for smaller screens */
-@media (max-width: 600px) {
-    nav ul {
-        flex-direction: column;
-    }
-    
-    nav ul li {
-        margin-bottom: 5px;
-    }
-}
-
 h1, h2, h3 {
     color: #ffffff;
 }
@@ -96,6 +77,12 @@ h1, h2, h3 {
 .emoji {
     font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
     margin-right: 10px;
+}
+
+/* Prevent text from breaking across lines */
+.no-break {
+    white-space: nowrap;
+    color: #cccccc;
 }
 
 p, li {
@@ -142,11 +129,77 @@ a {
     background-color: #111111;
     display: flex;
     justify-content: center;
-    padding: 0 0;
+    padding: 0;
 }
 
 .resume-image {
     max-width: 100%;
     height: auto;
     display: block;
+}
+
+/* Responsive layout */
+@media (max-width: 600px) {
+    nav ul {
+        flex-direction: column;
+    }
+    
+    nav ul li {
+        margin-bottom: 5px;
+    }
+}
+
+/* Background animation */
+.bg-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    background-color: #000000;
+}
+
+.bg-animation::before, 
+.bg-animation::after {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(#111, #222);
+    border-radius: 50%;
+    opacity: 0.2;
+}
+
+.bg-animation::before {
+    top: 10%;
+    left: 20%;
+    animation: float 15s infinite ease-in-out;
+}
+
+.bg-animation::after {
+    bottom: 15%;
+    right: 15%;
+    width: 200px;
+    height: 200px;
+    animation: float 12s infinite ease-in-out reverse;
+}
+
+@keyframes float {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+        transform: translate(50px, 30px) rotate(45deg);
+    }
+    50% {
+        transform: translate(20px, 60px) rotate(90deg);
+    }
+    75% {
+        transform: translate(-30px, 30px) rotate(45deg);
+    }
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
 }
