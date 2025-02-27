@@ -7,13 +7,10 @@ body {
     background-color: #000000;
 }
 
-code {
-    font-family: Verdana, Geneva, sans-serif;
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
-    color: #cccccc;
-    background-color: #000000;
+/* Prevent text from breaking across lines */
+.no-break {
+    white-space: nowrap;
+    color: #cccccc; /* Keeping the same color that was used for code */
 }
 
 .container {
