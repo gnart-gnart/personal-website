@@ -149,14 +149,31 @@ a {
     display: block;
 }
 
-/* Responsive layout */
+/* Responsive layout fix for nav buttons */
 @media (max-width: 600px) {
     nav ul {
         flex-direction: column;
     }
     
     nav ul li {
-        margin-bottom: 5px;
+        margin: 0 0 5px 0; /* Remove horizontal margins, keep only bottom margin */
+    }
+    
+    /* Override the first/last child margin settings for mobile */
+    nav ul li:first-child,
+    nav ul li:last-child {
+        margin: 0 0 5px 0; /* Same margins as all other items */
+    }
+    
+    /* No bottom margin on last item to prevent extra space */
+    nav ul li:last-child {
+        margin-bottom: 0;
+    }
+    
+    /* Make all buttons take full width in mobile view */
+    nav ul li a {
+        width: 100%;
+        box-sizing: border-box;
     }
 }
 
