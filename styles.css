@@ -1,0 +1,94 @@
+body {
+    font-family: Verdana, Geneva, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    color: #ffffff;
+    background-color: #000000;
+}
+
+.container {
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #333333;
+    margin-top: 20px;
+    background-color: #000000;
+}
+
+nav {
+    background-color: #000000;
+    padding: 10px 0;
+    border-bottom: 1px solid #333333;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: normal;
+    padding: 5px 10px;
+}
+
+nav ul li a:hover {
+    background-color: #333333;
+}
+
+h1, h2, h3 {
+    color: #ffffff;
+}
+
+/* For emoji consistency */
+.emoji {
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    margin-right: 10px;
+}
+
+p, li {
+    color: #cccccc;
+}
+
+a {
+    color: #ffffff;
+}
+
+.blog-post {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #333333;
+}
+
+.project {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #000000;
+    border-left: 3px solid #333333;
+}
+
+.pdf-container {
+    width: 100%;
+    height: 1100px; /* Approximate height for a standard US Letter PDF */
+    overflow: auto; /* Add scrollbar if content overflows */
+    margin-top: 20px;
+    border: 1px solid #333333;
+    background-color: #111111; /* Slightly lighter than the page background */
+}
+
+.pdf-container object {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: none;
+}
