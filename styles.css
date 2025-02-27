@@ -29,21 +29,33 @@ nav {
     /* Removed the border from nav */
 }
 
+/* Update the navbar container to match main container width */
 nav .container {
-    border: none; /* Remove border from nav container */
-    margin-top: 0; /* Remove top margin from nav container */
+    border: none;
+    margin-top: 0;
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 10px 0;
 }
 
+/* Make navbar items equal width and centered */
 nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    text-align: left;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 nav ul li {
-    display: inline;
-    margin-right: 20px;
+    display: block;
+    flex: 1;
+    min-width: 120px; /* Minimum width for each item */
+    text-align: center;
+    margin: 0;
+    padding: 5px;
 }
 
 nav ul li a {
@@ -51,7 +63,10 @@ nav ul li a {
     color: #ffffff;
     font-weight: normal;
     padding: 5px 10px;
-    border: 1px solid #000000; /* Black border that matches background */
+    border: 1px solid #000000;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 nav ul li a:hover {
@@ -59,7 +74,18 @@ nav ul li a:hover {
 }
 
 nav ul li a.active {
-    border: 1px solid #333333; /* Visible border for active item */
+    border: 1px solid #333333;
+}
+
+/* Responsive layout for smaller screens */
+@media (max-width: 600px) {
+    nav ul {
+        flex-direction: column;
+    }
+    
+    nav ul li {
+        margin-bottom: 5px;
+    }
 }
 
 h1, h2, h3 {
