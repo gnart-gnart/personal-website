@@ -178,17 +178,23 @@ a {
 
 .stars1 {
     background-image: 
+        radial-gradient(1px 1px at 5% 10%, rgba(150, 150, 150, 0.9) 1px, transparent 0),
         radial-gradient(1px 1px at 10% 20%, rgba(150, 150, 150, 0.9) 1px, transparent 0),
-        radial-gradient(1px 1px at 20% 50%, rgba(150, 150, 150, 0.9) 1px, transparent 0),
+        radial-gradient(1px 1px at 20% 5%, rgba(150, 150, 150, 0.9) 1px, transparent 0),
         radial-gradient(1px 1px at 30% 30%, rgba(150, 150, 150, 0.8) 1px, transparent 0),
         radial-gradient(1px 1px at 40% 40%, rgba(150, 150, 150, 0.7) 1px, transparent 0),
         radial-gradient(1px 1px at 60% 10%, rgba(150, 150, 150, 0.7) 1px, transparent 0),
-        radial-gradient(1px 1px at 70% 30%, rgba(150, 150, 150, 0.8) 1px, transparent 0),
-        radial-gradient(1px 1px at 90% 60%, rgba(150, 150, 150, 0.7) 1px, transparent 0),
+        radial-gradient(1px 1px at 70% 5%, rgba(150, 150, 150, 0.8) 1px, transparent 0),
+        radial-gradient(1px 1px at 90% 10%, rgba(150, 150, 150, 0.7) 1px, transparent 0),
+        radial-gradient(1px 1px at 95% 15%, rgba(150, 150, 150, 0.8) 1px, transparent 0),
         radial-gradient(1px 1px at 15% 70%, rgba(150, 150, 150, 0.8) 1px, transparent 0),
+        radial-gradient(1px 1px at 5% 80%, rgba(150, 150, 150, 0.9) 1px, transparent 0),
+        radial-gradient(1px 1px at 15% 95%, rgba(150, 150, 150, 0.8) 1px, transparent 0),
         radial-gradient(1px 1px at 45% 80%, rgba(150, 150, 150, 0.7) 1px, transparent 0),
         radial-gradient(1px 1px at 55% 95%, rgba(150, 150, 150, 0.9) 1px, transparent 0),
-        radial-gradient(1px 1px at 75% 85%, rgba(150, 150, 150, 0.8) 1px, transparent 0);
+        radial-gradient(1px 1px at 75% 85%, rgba(150, 150, 150, 0.8) 1px, transparent 0),
+        radial-gradient(1px 1px at 85% 90%, rgba(150, 150, 150, 0.7) 1px, transparent 0),
+        radial-gradient(1px 1px at 95% 85%, rgba(150, 150, 150, 0.9) 1px, transparent 0);
     background-size: 500px 500px;
     animation: starsAnimation 300s linear infinite;
 }
@@ -196,16 +202,21 @@ a {
 /* Stars layer 2 (medium, medium speed) */
 .stars2 {
     background-image: 
+        radial-gradient(1.5px 1.5px at 7% 5%, rgba(100, 100, 120, 0.7) 1px, transparent 0),
         radial-gradient(1.5px 1.5px at 15% 15%, rgba(100, 100, 120, 0.7) 1px, transparent 0),
-        radial-gradient(1.5px 1.5px at 25% 45%, rgba(100, 100, 120, 0.7) 1px, transparent 0),
+        radial-gradient(1.5px 1.5px at 25% 5%, rgba(100, 100, 120, 0.7) 1px, transparent 0),
         radial-gradient(1.5px 1.5px at 35% 65%, rgba(100, 100, 120, 0.8) 1px, transparent 0),
         radial-gradient(1.5px 1.5px at 55% 25%, rgba(100, 100, 120, 0.7) 1px, transparent 0),
-        radial-gradient(1.5px 1.5px at 65% 75%, rgba(100, 100, 120, 0.6) 1px, transparent 0),
-        radial-gradient(1.5px 1.5px at 85% 45%, rgba(100, 100, 120, 0.8) 1px, transparent 0),
+        radial-gradient(1.5px 1.5px at 65% 5%, rgba(100, 100, 120, 0.6) 1px, transparent 0),
+        radial-gradient(1.5px 1.5px at 85% 15%, rgba(100, 100, 120, 0.8) 1px, transparent 0),
+        radial-gradient(1.5px 1.5px at 95% 5%, rgba(100, 100, 120, 0.7) 1px, transparent 0),
         radial-gradient(1.5px 1.5px at 12% 32%, rgba(100, 100, 120, 0.7) 1px, transparent 0),
-        radial-gradient(1.5px 1.5px at 42% 52%, rgba(100, 100, 120, 0.8) 1px, transparent 0),
-        radial-gradient(1.5px 1.5px at 62% 12%, rgba(100, 100, 120, 0.6) 1px, transparent 0),
-        radial-gradient(1.5px 1.5px at 82% 82%, rgba(100, 100, 120, 0.7) 1px, transparent 0);
+        radial-gradient(1.5px 1.5px at 5% 95%, rgba(100, 100, 120, 0.7) 1px, transparent 0),
+        radial-gradient(1.5px 1.5px at 15% 85%, rgba(100, 100, 120, 0.7) 1px, transparent 0),
+        radial-gradient(1.5px 1.5px at 42% 95%, rgba(100, 100, 120, 0.8) 1px, transparent 0),
+        radial-gradient(1.5px 1.5px at 62% 92%, rgba(100, 100, 120, 0.6) 1px, transparent 0),
+        radial-gradient(1.5px 1.5px at 82% 82%, rgba(100, 100, 120, 0.7) 1px, transparent 0),
+        radial-gradient(1.5px 1.5px at 92% 92%, rgba(100, 100, 120, 0.8) 1px, transparent 0);
     background-size: 700px 700px;
     animation: starsAnimation 180s linear infinite;
 }
@@ -213,70 +224,77 @@ a {
 /* Stars layer 3 (larger, slow) */
 .stars3 {
     background-image: 
-        radial-gradient(2px 2px at 5% 25%, rgba(70, 70, 90, 0.5) 1px, transparent 0),
-        radial-gradient(2px 2px at 18% 65%, rgba(70, 70, 90, 0.6) 1px, transparent 0),
-        radial-gradient(2.5px 2.5px at 38% 85%, rgba(70, 70, 90, 0.5) 1px, transparent 0),
-        radial-gradient(2.5px 2.5px at 58% 15%, rgba(70, 70, 90, 0.6) 1px, transparent 0),
-        radial-gradient(2px 2px at 75% 55%, rgba(70, 70, 90, 0.5) 1px, transparent 0),
-        radial-gradient(2px 2px at 95% 35%, rgba(70, 70, 90, 0.6) 1px, transparent 0),
-        radial-gradient(2px 2px at 22% 18%, rgba(70, 70, 90, 0.5) 1px, transparent 0),
-        radial-gradient(2px 2px at 45% 32%, rgba(70, 70, 90, 0.6) 1px, transparent 0),
-        radial-gradient(2px 2px at 65% 62%, rgba(70, 70, 90, 0.5) 1px, transparent 0);
+        radial-gradient(2px 2px at 5% 5%, rgba(70, 70, 90, 0.5) 1px, transparent 0),
+        radial-gradient(2px 2px at 18% 10%, rgba(70, 70, 90, 0.6) 1px, transparent 0),
+        radial-gradient(2.5px 2.5px at 8% 85%, rgba(70, 70, 90, 0.5) 1px, transparent 0),
+        radial-gradient(2.5px 2.5px at 18% 95%, rgba(70, 70, 90, 0.6) 1px, transparent 0),
+        radial-gradient(2px 2px at 5% 65%, rgba(70, 70, 90, 0.5) 1px, transparent 0),
+        radial-gradient(2px 2px at 95% 5%, rgba(70, 70, 90, 0.6) 1px, transparent 0),
+        radial-gradient(2px 2px at 92% 15%, rgba(70, 70, 90, 0.5) 1px, transparent 0),
+        radial-gradient(2px 2px at 85% 92%, rgba(70, 70, 90, 0.6) 1px, transparent 0),
+        radial-gradient(2px 2px at 95% 75%, rgba(70, 70, 90, 0.5) 1px, transparent 0);
     background-size: 900px 900px;
     animation: starsAnimation 240s linear reverse infinite;
 }
 
-/* Layer 4 - bright stars with glow */
+/* Layer 4 - bright stars with glow (concentrated around edges) */
 .stars4 {
     background-image: 
-        radial-gradient(2.5px 2.5px at 18% 22%, rgba(220, 220, 255, 0.8) 1px, rgba(220, 220, 255, 0.2) 2px, transparent 3px),
-        radial-gradient(2.5px 2.5px at 42% 58%, rgba(220, 220, 255, 0.8) 1px, rgba(220, 220, 255, 0.2) 2px, transparent 3px),
-        radial-gradient(2.5px 2.5px at 68% 72%, rgba(220, 220, 255, 0.8) 1px, rgba(220, 220, 255, 0.2) 2px, transparent 3px),
-        radial-gradient(2.5px 2.5px at 82% 18%, rgba(220, 220, 255, 0.8) 1px, rgba(220, 220, 255, 0.2) 2px, transparent 3px),
-        radial-gradient(2.5px 2.5px at 32% 82%, rgba(220, 220, 255, 0.8) 1px, rgba(220, 220, 255, 0.2) 2px, transparent 3px);
+        radial-gradient(2.5px 2.5px at 8% 12%, rgba(220, 220, 255, 0.8) 1px, rgba(220, 220, 255, 0.2) 2px, transparent 3px),
+        radial-gradient(2.5px 2.5px at 12% 8%, rgba(220, 220, 255, 0.8) 1px, rgba(220, 220, 255, 0.2) 2px, transparent 3px),
+        radial-gradient(3px 3px at 5% 88%, rgba(220, 220, 255, 0.8) 1px, rgba(220, 220, 255, 0.2) 2px, transparent 3px),
+        radial-gradient(2.5px 2.5px at 92% 8%, rgba(220, 220, 255, 0.8) 1px, rgba(220, 220, 255, 0.2) 2px, transparent 3px),
+        radial-gradient(3px 3px at 88% 92%, rgba(220, 220, 255, 0.8) 1px, rgba(220, 220, 255, 0.2) 2px, transparent 3px);
     background-size: 1200px 1200px;
     animation: starsAnimation 360s linear infinite;
 }
 
-/* Layer 5 - distant star clusters */
+/* Layer 5 - distant star clusters (edge-focused) */
 .stars5 {
     background-image: 
-        radial-gradient(1px 1px at 23% 28%, rgba(180, 180, 200, 0.3) 1px, transparent 8px),
-        radial-gradient(1px 1px at 47% 63%, rgba(180, 180, 200, 0.3) 1px, transparent 8px),
-        radial-gradient(1px 1px at 73% 33%, rgba(180, 180, 200, 0.3) 1px, transparent 8px),
-        radial-gradient(1px 1px at 87% 78%, rgba(180, 180, 200, 0.3) 1px, transparent 8px);
+        radial-gradient(1px 1px at 3% 8%, rgba(180, 180, 200, 0.3) 1px, transparent 8px),
+        radial-gradient(1px 1px at 7% 93%, rgba(180, 180, 200, 0.3) 1px, transparent 8px),
+        radial-gradient(1px 1px at 93% 7%, rgba(180, 180, 200, 0.3) 1px, transparent 8px),
+        radial-gradient(1px 1px at 97% 88%, rgba(180, 180, 200, 0.3) 1px, transparent 8px);
     background-size: 1500px 1500px;
     animation: starsAnimation 420s linear reverse infinite;
 }
 
-/* Nebula effects */
-.nebula1, .nebula2, .nebula3 {
+/* Nebula effects - positioned primarily around edges */
+.nebula1, .nebula2, .nebula3, .nebula4 {
     position: absolute;
     width: 100%;
     height: 100%;
     filter: blur(30px);
-    opacity: 0.25;
+    opacity: 0.3;
 }
 
 .nebula1 {
     background-image: 
-        radial-gradient(circle at 30% 20%, rgba(50, 50, 80, 0.4) 0%, transparent 25%),
-        radial-gradient(circle at 70% 60%, rgba(50, 50, 80, 0.4) 0%, transparent 25%);
+        radial-gradient(circle at 15% 15%, rgba(50, 50, 80, 0.5) 0%, transparent 25%),
+        radial-gradient(circle at 85% 15%, rgba(60, 50, 80, 0.5) 0%, transparent 25%);
     animation: nebulaFade 20s ease-in-out infinite alternate;
 }
 
 .nebula2 {
     background-image: 
-        radial-gradient(circle at 20% 80%, rgba(60, 50, 90, 0.3) 0%, transparent 22%),
-        radial-gradient(circle at 80% 40%, rgba(50, 60, 100, 0.3) 0%, transparent 22%);
+        radial-gradient(circle at 15% 85%, rgba(60, 50, 90, 0.4) 0%, transparent 22%),
+        radial-gradient(circle at 85% 85%, rgba(50, 60, 100, 0.4) 0%, transparent 22%);
     animation: nebulaFade 25s ease-in-out infinite alternate-reverse;
 }
 
 .nebula3 {
     background-image: 
-        radial-gradient(ellipse at 40% 40%, rgba(70, 70, 100, 0.2) 0%, transparent 30%),
-        radial-gradient(ellipse at 60% 70%, rgba(60, 70, 120, 0.2) 0%, transparent 30%);
+        radial-gradient(ellipse at 10% 50%, rgba(70, 70, 100, 0.3) 0%, transparent 30%),
+        radial-gradient(ellipse at 90% 50%, rgba(60, 70, 120, 0.3) 0%, transparent 30%);
     animation: nebulaFade 30s ease-in-out 5s infinite alternate;
+}
+
+.nebula4 {
+    background-image: 
+        radial-gradient(ellipse at 50% 10%, rgba(90, 70, 110, 0.25) 0%, transparent 25%),
+        radial-gradient(ellipse at 50% 90%, rgba(70, 80, 120, 0.25) 0%, transparent 25%);
+    animation: nebulaFade 22s ease-in-out 8s infinite alternate-reverse;
 }
 
 @keyframes starsAnimation {
@@ -290,12 +308,12 @@ a {
 
 @keyframes nebulaFade {
     0% {
-        opacity: 0.15;
+        opacity: 0.2;
     }
     50% {
-        opacity: 0.3;
+        opacity: 0.4;
     }
     100% {
-        opacity: 0.15;
+        opacity: 0.2;
     }
 }
