@@ -29,7 +29,12 @@ code {
 nav {
     background-color: #000000;
     padding: 10px 0;
-    border-bottom: 1px solid #333333;
+    /* Removed the border from nav */
+}
+
+nav .container {
+    border: none; /* Remove border from nav container */
+    margin-top: 0; /* Remove top margin from nav container */
 }
 
 nav ul {
@@ -49,10 +54,15 @@ nav ul li a {
     color: #ffffff;
     font-weight: normal;
     padding: 5px 10px;
+    border: 1px solid #000000; /* Black border that matches background */
 }
 
 nav ul li a:hover {
     background-color: #333333;
+}
+
+nav ul li a.active {
+    border: 1px solid #333333; /* Visible border for active item */
 }
 
 h1, h2, h3 {
@@ -88,11 +98,11 @@ a {
 
 .pdf-container {
     width: 100%;
-    height: 1100px; /* Approximate height for a standard US Letter PDF */
-    overflow: auto; /* Add scrollbar if content overflows */
+    height: 1100px;
+    overflow: auto;
     margin-top: 20px;
     border: 1px solid #333333;
-    background-color: #111111; /* Slightly lighter than the page background */
+    background-color: #111111;
 }
 
 .pdf-container object {
