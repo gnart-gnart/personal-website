@@ -7,15 +7,15 @@ body {
     background-color: #000000;
 }
 
-/* Base container styling */
+/* Container styling - slightly transparent background with opaque border */
 .container {
     width: 80%;
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    border: 1px solid #333333;
+    border: 1px solid #333333; /* Fully opaque border */
     margin-top: 0;
-    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.7); /* Slightly transparent background */
     box-sizing: border-box;
 }
 
@@ -45,29 +45,39 @@ nav ul {
 /* Make list items take equal width */
 nav ul li {
     flex: 1;
-    margin: 0;
+    margin: 0 5px; /* Add horizontal margin for spacing */
     padding: 0;
 }
 
-/* Style the links */
+/* Remove margin from first and last item to maintain outer alignment */
+nav ul li:first-child {
+    margin-left: 0;
+}
+
+nav ul li:last-child {
+    margin-right: 0;
+}
+
+/* Style the links - less transparent with opaque borders */
 nav ul li a {
     text-decoration: none;
     color: #ffffff;
     font-weight: normal;
     padding: 5px 10px;
-    border: 1px solid rgba(51, 51, 51, 0.5);
+    border: 1px solid #333333; /* Fully opaque border */
     display: block;
     text-align: center;
     box-sizing: border-box;
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0.7); /* Slightly transparent background */
 }
 
 nav ul li a:hover {
-    background-color: rgba(51, 51, 51, 0.3);
+    background-color: rgba(51, 51, 51, 1); /* Fully opaque on hover */
 }
 
 nav ul li a.active {
-    border: 1px solid rgba(51, 51, 51, 0.8);
+    border: 1px solid #333333; /* Fully opaque border */
+    background-color: rgba(15, 15, 15, 0.7); /* Slightly different shade for active */
 }
 
 h1, h2, h3 {
