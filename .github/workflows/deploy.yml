@@ -26,4 +26,4 @@ jobs:
           path: .  # Target root folder including index.html, blog.html, etc.
 
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
