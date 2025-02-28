@@ -1,38 +1,190 @@
+:root {
+    /* Base colors - switching to light theme */
+    --text-color: #222222; /* Darker */
+    --text-secondary: #555555; /* Darker */
+    --bg-color: #f0f0f0; /* Slightly darker */
+    --container-bg: #ffffff;
+    
+    /* Theme: Home (Darker Regal Purple) */
+    --home-border: rgb(120, 50, 200); /* Darker regal purple */
+    --home-accent: rgb(90, 30, 160); /* Even darker purple for contrast */
+    
+    /* Theme: Resume (Sky Blue) */
+    --resume-border: rgb(70, 140, 210); /* Sky blue, dark enough for legibility */
+    --resume-accent: rgb(50, 110, 180); /* Darker sky blue for accent */
+    
+    /* Theme: Projects (Dark Red) */
+    --projects-border: rgb(180, 40, 40); /* Dark red */
+    --projects-accent: rgb(150, 30, 30); /* Deeper dark red for accent */
+    
+    /* Theme: Blog (Green) - keeping this the same */
+    --blog-border: rgb(60, 160, 80); /* More forest-like green */
+    --blog-accent: rgb(40, 130, 60); /* Deeper forest green */
+    
+    /* Geometric background colors */
+    --geo-bg-1: #e6f7ff;
+    --geo-bg-2: #f0f9ff;
+    --geo-shape-1: rgba(180, 220, 250, 0.5);
+    --geo-shape-2: rgba(220, 240, 255, 0.6);
+    --geo-shape-3: rgba(200, 230, 255, 0.4);
+    --geo-shape-4: rgba(190, 225, 250, 0.3);
+    
+    /* Gradient background colors - no transparency */
+    --gradient-start: #e0f0ff; /* Cool light blue */
+    --gradient-middle: #d0e8f5; /* Peaceful middle tone */
+    --gradient-end: #c0e0f0; /* Slightly deeper cool blue */
+    
+    /* Pattern background colors */
+    --bg-pattern-color: #e8e8e8; /* Light gray - made slightly darker */
+    --bg-pattern-line: #ffffff; /* White lines */
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    font-family: Verdana, Geneva, sans-serif;
+    /* Changing to a softer, calming font */
+    font-family: 'Nunito', 'Open Sans', sans-serif;
     margin: 0;
     padding: 0;
     line-height: 1.6;
-    color: #ffffff;
-    background-color: #000000;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    position: relative;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    display: flex;
+    flex-direction: column;
 }
 
-/* Container styling - slightly transparent background with opaque border */
-.container {
+/* Background container - updated to light gray with white stripes at 45 degrees */
+.landscape-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    background-color: var(--bg-pattern-color);
+    background-image: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 19px,
+        var(--bg-pattern-line) 19px,
+        var(--bg-pattern-line) 20px
+    );
+}
+
+/* Container styling - white background with pastel border - fully opaque */
+.container:not(nav .container) {
     width: 80%;
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    border: 1px solid #333333; /* Fully opaque border */
     margin-top: 0;
-    background-color: rgba(0, 0, 0, 0.7); /* Slightly transparent background */
+    background-color: var(--container-bg);
     box-sizing: border-box;
+    position: relative; /* Ensure it's above the background */
+    backdrop-filter: blur(5px); /* Subtle blur effect */
+    background-color: #ffffff; /* Fully opaque white */
+    flex: 1;
+}
+
+/* Style the main content container to extend to the bottom - fix for resume page */
+body > .container:last-of-type {
+    border-bottom: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    min-height: calc(100vh - 200px); /* Base height calculation */
+    margin-bottom: 0;
+    padding-bottom: 50px; /* Add some padding at bottom */
+    display: flex; /* Make it a flex container */
+    flex-direction: column; /* Stack content vertically */
+}
+
+/* Special case for resume page container */
+.resume-page > .container:last-of-type {
+    min-height: auto; /* Override min-height */
+    flex: 1; /* Make it grow to fill space */
+}
+
+/* Apply border styling to non-nav containers based on page theme */
+.home-page .container:not(nav .container) {
+    border: 2px solid var(--home-border);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom: none;
+}
+
+.resume-page .container:not(nav .container) {
+    border: 2px solid var(--resume-border);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom: none;
+}
+
+.projects-page .container:not(nav .container) {
+    border: 2px solid var(--projects-border);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom: none;
+}
+
+.blog-page .container:not(nav .container) {
+    border: 2px solid var(--blog-border);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom: none;
 }
 
 /* Navbar styling - make transparent */
 nav {
     background-color: transparent;
-    padding: 10px 0 0 0;
+    padding: 0;
+    margin-bottom: 0;
+    margin-top: 50px; /* Significantly increased top margin - more than double */
+    position: relative; /* Ensure it's above the background */
+    z-index: 5;
 }
 
-/* Navbar container - make transparent but preserve structure */
-nav .container {
-    border: none;
-    margin-top: 0;
-    padding-left: 0;
-    padding-right: 0;
-    background-color: transparent;
+/* Special case for the first container after nav */
+nav + .container {
+    margin-top: 25px; /* Increased space between nav buttons and main content container */
+    position: static; /* Remove positioning */
+    z-index: auto; /* Remove z-index */
 }
+
+/* Completely override container styling for nav container */
+nav .container {
+    /* Reset all container properties */
+    border: none;
+    background-color: transparent !important; /* Force transparency */
+    background: none !important; /* Force no background */
+    box-shadow: none;
+    outline: none;
+    
+    /* Keep only structural properties */
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0;
+    margin-bottom: 15px; /* Add margin at the bottom of the nav container */
+}
+
+/* Explicitly exclude nav container from themed containers */
+.home-page nav .container,
+.resume-page nav .container,
+.projects-page nav .container,
+.blog-page nav .container {
+    border: none !important;
+    background-color: transparent !important;
+    background: none !important;
+    box-shadow: none;
+}
+
 /* Reset list styling */
 nav ul {
     list-style-type: none;
@@ -58,31 +210,89 @@ nav ul li:last-child {
     margin-right: 0;
 }
 
-/* Style the links - less transparent with opaque borders */
+/* Style the links - with borders on all sides */
 nav ul li a {
     text-decoration: none;
-    color: #ffffff;
+    color: var(--text-color) !important;
     font-weight: normal;
-    padding: 5px 10px;
-    border: 1px solid #333333; /* Fully opaque border */
+    padding: 8px 12px;
     display: block;
     text-align: center;
     box-sizing: border-box;
-    background-color: rgba(0, 0, 0, 0.7); /* Slightly transparent background */
+    background-color: var(--container-bg);
+    border: 2px solid transparent; /* Default to transparent borders - increased to 2px */
+    border-radius: 6px; /* Rounded corners for buttons */
+    transition: all 0.2s ease;
 }
 
+/* Home button (red) */
+nav ul li a[href="index.html"] {
+    border: 2px solid var(--home-border);
+    color: var(--home-accent) !important;
+}
+
+/* Resume button (yellow) */
+nav ul li a[href="resume.html"] {
+    border: 2px solid var(--resume-border);
+    color: var(--resume-accent) !important;
+}
+
+/* Projects button (green) */
+nav ul li a[href="projects.html"] {
+    border: 2px solid var(--projects-border);
+    color: var(--projects-accent) !important;
+}
+
+/* Blog button (blue) */
+nav ul li a[href="blog.html"] {
+    border: 2px solid var(--blog-border);
+    color: var(--blog-accent) !important;
+}
+
+/* Update hover states for navbar links - only make text bold */
 nav ul li a:hover {
-    background-color: rgba(51, 51, 51, 1); /* Fully opaque on hover */
+    font-weight: bold; /* Only make text bold on hover */
 }
 
-nav ul li a.active {
-    border: 1px solid #333333; /* Fully opaque border */
-    background-color: rgba(15, 15, 15, 0.7); /* Slightly different shade for active */
+/* Active states - inverting colors (background matches border, text becomes white) */
+nav ul li a[href="index.html"].active {
+    border: 2px solid var(--home-border);
+    background-color: var(--home-border);
+    color: white !important;
+    font-weight: bold;
+}
+
+nav ul li a[href="resume.html"].active {
+    border: 2px solid var(--resume-border);
+    background-color: var(--resume-border);
+    color: white !important;
+    font-weight: bold;
+}
+
+nav ul li a[href="projects.html"].active {
+    border: 2px solid var(--projects-border);
+    background-color: var(--projects-border);
+    color: white !important;
+    font-weight: bold;
+}
+
+nav ul li a[href="blog.html"].active {
+    border: 2px solid var(--blog-border);
+    background-color: var(--blog-border);
+    color: white !important;
+    font-weight: bold;
 }
 
 h1, h2, h3 {
-    color: #ffffff;
+    color: var(--text-color);
+    font-weight: 600;
 }
+
+/* Page-specific heading colors */
+.home-page h1, .home-page h2, .home-page h3 { color: var(--home-accent); }
+.resume-page h1, .resume-page h2, .resume-page h3 { color: var(--resume-accent); }
+.projects-page h1, .projects-page h2, .projects-page h3 { color: var(--projects-accent); }
+.blog-page h1, .blog-page h2, .blog-page h3 { color: var(--blog-accent); }
 
 /* For emoji consistency */
 .emoji {
@@ -93,28 +303,53 @@ h1, h2, h3 {
 /* Prevent text from breaking across lines */
 .no-break {
     white-space: nowrap;
-    color: #cccccc;
+    color: var(--text-secondary);
 }
 
 p, li {
-    color: #cccccc;
+    color: var(--text-secondary);
 }
 
 a {
-    color: #ffffff;
+    color: var(--text-color);
+    text-decoration: none;
+    border-bottom: 1px dotted;
+    transition: all 0.2s ease;
+}
+
+/* Add theme-specific link colors */
+.home-page a { color: var(--home-accent); }
+.resume-page a { color: var(--resume-accent); }
+.projects-page a { color: var(--projects-accent); }
+.blog-page a { color: var(--blog-accent); }
+
+/* Override for navbar links */
+nav ul li a {
+    border-bottom: none;
 }
 
 .blog-post {
     margin-bottom: 30px;
     padding-bottom: 20px;
-    border-bottom: 1px solid #333333;
+    border-bottom: 1px solid #eeeeee;
+}
+
+/* Theme-specific styling for blog posts */
+.blog-page .blog-post {
+    border-bottom: 2px solid var(--blog-border); /* Opaque border using the theme color */
 }
 
 .project {
     margin-bottom: 20px;
     padding: 15px;
-    background-color: #000000;
-    border-left: 3px solid #333333;
+    background-color: #ffffff; /* Fully opaque white */
+    border-left: 4px solid #dddddd; /* Opaque light gray */
+    border-radius: 4px;
+}
+
+/* Theme-specific styling for projects */
+.projects-page .project {
+    border-left: 4px solid var(--projects-border);
 }
 
 .pdf-container {
@@ -122,8 +357,15 @@ a {
     height: 1100px;
     overflow: auto;
     margin-top: 20px;
-    border: 1px solid #333333;
-    background-color: #111111;
+    border: 2px solid #eeeeee;
+    background-color: #ffffff;
+    border-radius: 4px;
+}
+
+/* Theme-specific styling for resume containers */
+.resume-page .pdf-container,
+.resume-page .resume-image-container {
+    border: 2px solid var(--resume-border);
 }
 
 .pdf-container object {
@@ -133,20 +375,24 @@ a {
     border: none;
 }
 
+/* Fix for the resume image container */
 .resume-image-container {
     width: 100%;
     margin-top: 20px;
-    border: 1px solid #333333;
-    background-color: #111111;
+    border: 2px solid #eeeeee;
+    background-color: #ffffff;
     display: flex;
     justify-content: center;
     padding: 0;
+    border-radius: 4px;
+    max-height: none; /* Ensure no max height restriction */
 }
 
 .resume-image {
     max-width: 100%;
     height: auto;
     display: block;
+    border-radius: 4px;
 }
 
 /* Responsive layout fix for nav buttons */
@@ -177,188 +423,25 @@ a {
     }
 }
 
-
-
-
-
-/* Space-themed background animation */
-.bg-animation {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    overflow: hidden;
-    background: linear-gradient(to bottom, #000000, #050505);
+/* Resume page specific fixes */
+.resume-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-/* Stars layer 1 (small, fast) */
-.stars1, .stars2, .stars3, .stars4, .stars5 {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-repeat: repeat;
-    background-position: 0 0;
+.resume-page > .container:last-of-type {
+    flex: 1;
+    min-height: 0; /* Override previous min-height setting */
+    display: flex;
+    flex-direction: column;
 }
 
-.stars1 {
-    background-image: 
-        radial-gradient(1px 1px at 5% 10%, rgba(150, 150, 150, 0.9) 1px, transparent 0),
-        radial-gradient(1px 1px at 10% 20%, rgba(150, 150, 150, 0.9) 1px, transparent 0),
-        radial-gradient(1px 1px at 20% 5%, rgba(150, 150, 150, 0.9) 1px, transparent 0),
-        radial-gradient(1px 1px at 30% 30%, rgba(150, 150, 150, 0.8) 1px, transparent 0),
-        radial-gradient(1px 1px at 40% 40%, rgba(150, 150, 150, 0.7) 1px, transparent 0),
-        radial-gradient(1px 1px at 60% 10%, rgba(150, 150, 150, 0.7) 1px, transparent 0),
-        radial-gradient(1px 1px at 70% 5%, rgba(150, 150, 150, 0.8) 1px, transparent 0),
-        radial-gradient(1px 1px at 90% 10%, rgba(150, 150, 150, 0.7) 1px, transparent 0),
-        radial-gradient(1px 1px at 95% 15%, rgba(150, 150, 150, 0.8) 1px, transparent 0),
-        radial-gradient(1px 1px at 15% 70%, rgba(150, 150, 150, 0.8) 1px, transparent 0),
-        radial-gradient(1px 1px at 5% 80%, rgba(150, 150, 150, 0.9) 1px, transparent 0),
-        radial-gradient(1px 1px at 15% 95%, rgba(150, 150, 150, 0.8) 1px, transparent 0),
-        radial-gradient(1px 1px at 45% 80%, rgba(150, 150, 150, 0.7) 1px, transparent 0),
-        radial-gradient(1px 1px at 55% 95%, rgba(150, 150, 150, 0.9) 1px, transparent 0),
-        radial-gradient(1px 1px at 75% 85%, rgba(150, 150, 150, 0.8) 1px, transparent 0),
-        radial-gradient(1px 1px at 85% 90%, rgba(150, 150, 150, 0.7) 1px, transparent 0),
-        radial-gradient(1px 1px at 95% 85%, rgba(150, 150, 150, 0.9) 1px, transparent 0),
-        radial-gradient(1px 1px at 10% 5%, rgba(150, 150, 150, 0.8) 1px, transparent 0),
-        radial-gradient(1px 1px at 25% 3%, rgba(150, 150, 150, 0.8) 1px, transparent 0),
-        radial-gradient(1px 1px at 40% 7%, rgba(150, 150, 150, 0.7) 1px, transparent 0),
-        radial-gradient(1px 1px at 55% 2%, rgba(150, 150, 150, 0.7) 1px, transparent 0),
-        radial-gradient(1px 1px at 70% 5%, rgba(150, 150, 150, 0.8) 1px, transparent 0),
-        radial-gradient(1px 1px at 85% 4%, rgba(150, 150, 150, 0.7) 1px, transparent 0);
-    background-size: 500px 500px;
-    animation: starsAnimation 300s linear infinite;
-}
-
-/* Stars layer 2 (medium, medium speed) */
-.stars2 {
-    background-image: 
-        radial-gradient(1px 1px at 30% 2%, rgba(150, 150, 150, 0.9) 1px, transparent 0),
-        radial-gradient(1px 1px at 50% 3%, rgba(150, 150, 150, 0.9) 1px, transparent 0),
-        radial-gradient(1px 1px at 70% 1%, rgba(150, 150, 150, 0.9) 1px, transparent 0),
-        radial-gradient(1.5px 1.5px at 7% 5%, rgba(100, 100, 120, 0.7) 1px, transparent 0),
-        radial-gradient(1.5px 1.5px at 15% 15%, rgba(100, 100, 120, 0.7) 1px, transparent 0),
-        radial-gradient(1.5px 1.5px at 25% 5%, rgba(100, 100, 120, 0.7) 1px, transparent 0),
-        radial-gradient(1.5px 1.5px at 35% 65%, rgba(100, 100, 120, 0.8) 1px, transparent 0),
-        radial-gradient(1.5px 1.5px at 55% 25%, rgba(100, 100, 120, 0.7) 1px, transparent 0),
-        radial-gradient(1.5px 1.5px at 65% 5%, rgba(100, 100, 120, 0.6) 1px, transparent 0),
-        radial-gradient(1.5px 1.5px at 85% 15%, rgba(100, 100, 120, 0.8) 1px, transparent 0),
-        radial-gradient(1.5px 1.5px at 95% 5%, rgba(100, 100, 120, 0.7) 1px, transparent 0),
-        radial-gradient(1.5px 1.5px at 12% 32%, rgba(100, 100, 120, 0.7) 1px, transparent 0),
-        radial-gradient(1.5px 1.5px at 5% 95%, rgba(100, 100, 120, 0.7) 1px, transparent 0),
-        radial-gradient(1.5px 1.5px at 15% 85%, rgba(100, 100, 120, 0.7) 1px, transparent 0),
-        radial-gradient(1.5px 1.5px at 42% 95%, rgba(100, 100, 120, 0.8) 1px, transparent 0),
-        radial-gradient(1.5px 1.5px at 62% 92%, rgba(100, 100, 120, 0.6) 1px, transparent 0),
-        radial-gradient(1.5px 1.5px at 82% 82%, rgba(100, 100, 120, 0.7) 1px, transparent 0),
-        radial-gradient(1.5px 1.5px at 92% 92%, rgba(100, 100, 120, 0.8) 1px, transparent 0),
-        radial-gradient(1.5px 1.5px at 15% 5%, rgba(100, 100, 120, 0.7) 1px, transparent 0),
-        radial-gradient(1.5px 1.5px at 35% 4%, rgba(100, 100, 120, 0.6) 1px, transparent 0),
-        radial-gradient(1.5px 1.5px at 60% 6%, rgba(100, 100, 120, 0.7) 1px, transparent 0),
-        radial-gradient(1.5px 1.5px at 80% 3%, rgba(100, 100, 120, 0.6) 1px, transparent 0);
-    background-size: 700px 700px;
-    animation: starsAnimation 180s linear infinite;
-}
-
-/* Stars layer 3 (larger, slow) */
-.stars3 {
-    background-image: 
-        radial-gradient(2px 2px at 5% 5%, rgba(70, 70, 90, 0.5) 1px, transparent 0),
-        radial-gradient(2px 2px at 18% 10%, rgba(70, 70, 90, 0.6) 1px, transparent 0),
-        radial-gradient(2.5px 2.5px at 8% 85%, rgba(70, 70, 90, 0.5) 1px, transparent 0),
-        radial-gradient(2.5px 2.5px at 18% 95%, rgba(70, 70, 90, 0.6) 1px, transparent 0),
-        radial-gradient(2px 2px at 5% 65%, rgba(70, 70, 90, 0.5) 1px, transparent 0),
-        radial-gradient(2px 2px at 95% 5%, rgba(70, 70, 90, 0.6) 1px, transparent 0),
-        radial-gradient(2px 2px at 92% 15%, rgba(70, 70, 90, 0.5) 1px, transparent 0),
-        radial-gradient(2px 2px at 85% 92%, rgba(70, 70, 90, 0.6) 1px, transparent 0),
-        radial-gradient(2px 2px at 95% 75%, rgba(70, 70, 90, 0.5) 1px, transparent 0);
-    background-size: 900px 900px;
-    animation: starsAnimation 240s linear reverse infinite;
-}
-
-/* Layer 4 - bright stars with glow (concentrated around edges) */
-.stars4 {
-    background-image: 
-        radial-gradient(2.5px 2.5px at 8% 12%, rgba(220, 220, 255, 0.8) 1px, rgba(220, 220, 255, 0.2) 2px, transparent 3px),
-        radial-gradient(2.5px 2.5px at 12% 8%, rgba(220, 220, 255, 0.8) 1px, rgba(220, 220, 255, 0.2) 2px, transparent 3px),
-        radial-gradient(3px 3px at 5% 88%, rgba(220, 220, 255, 0.8) 1px, rgba(220, 220, 255, 0.2) 2px, transparent 3px),
-        radial-gradient(2.5px 2.5px at 92% 8%, rgba(220, 220, 255, 0.8) 1px, rgba(220, 220, 255, 0.2) 2px, transparent 3px),
-        radial-gradient(3px 3px at 88% 92%, rgba(220, 220, 255, 0.8) 1px, rgba(220, 220, 255, 0.2) 2px, transparent 3px);
-    background-size: 1200px 1200px;
-    animation: starsAnimation 360s linear infinite;
-}
-
-/* Layer 5 - distant star clusters (edge-focused) */
-.stars5 {
-    background-image: 
-        radial-gradient(1px 1px at 3% 8%, rgba(180, 180, 200, 0.3) 1px, transparent 8px),
-        radial-gradient(1px 1px at 7% 93%, rgba(180, 180, 200, 0.3) 1px, transparent 8px),
-        radial-gradient(1px 1px at 93% 7%, rgba(180, 180, 200, 0.3) 1px, transparent 8px),
-        radial-gradient(1px 1px at 97% 88%, rgba(180, 180, 200, 0.3) 1px, transparent 8px);
-    background-size: 1500px 1500px;
-    animation: starsAnimation 420s linear reverse infinite;
-}
-
-/* Nebula effects - positioned primarily around edges */
-.nebula1, .nebula2, .nebula3, .nebula4 {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    filter: blur(30px);
-    opacity: 0.3;
-}
-
-.nebula1 {
-    background-image: 
-        radial-gradient(circle at 15% 15%, rgba(50, 50, 80, 0.5) 0%, transparent 25%),
-        radial-gradient(circle at 85% 15%, rgba(60, 50, 80, 0.5) 0%, transparent 25%),
-        radial-gradient(circle at 30% 10%, rgba(50, 50, 80, 0.3) 0%, transparent 25%),
-        radial-gradient(circle at 70% 10%, rgba(50, 50, 80, 0.3) 0%, transparent 25%);
-    animation: nebulaFade 20s ease-in-out infinite alternate;
-}
-
-.nebula2 {
-    background-image: 
-        radial-gradient(circle at 15% 85%, rgba(60, 50, 90, 0.4) 0%, transparent 22%),
-        radial-gradient(circle at 85% 85%, rgba(50, 60, 100, 0.4) 0%, transparent 22%);
-    animation: nebulaFade 25s ease-in-out infinite alternate-reverse;
-}
-
-.nebula3 {
-    background-image: 
-        radial-gradient(ellipse at 10% 50%, rgba(70, 70, 100, 0.3) 0%, transparent 30%),
-        radial-gradient(ellipse at 90% 50%, rgba(60, 70, 120, 0.3) 0%, transparent 30%);
-    animation: nebulaFade 30s ease-in-out 5s infinite alternate;
-}
-
-.nebula4 {
-    background-image: 
-        radial-gradient(ellipse at 50% 10%, rgba(90, 70, 110, 0.25) 0%, transparent 25%),
-        radial-gradient(ellipse at 50% 90%, rgba(70, 80, 120, 0.25) 0%, transparent 25%),
-        radial-gradient(ellipse at 40% 5%, rgba(70, 70, 100, 0.2) 0%, transparent 25%),
-        radial-gradient(ellipse at 60% 5%, rgba(70, 70, 100, 0.2) 0%, transparent 25%);
-    animation: nebulaFade 22s ease-in-out 8s infinite alternate-reverse;
-}
-
-@keyframes starsAnimation {
-    from {
-        background-position: 0 0;
-    }
-    to {
-        background-position: 100% 100%;
-    }
-}
-
-@keyframes nebulaFade {
-    0% {
-        opacity: 0.2;
-    }
-    50% {
-        opacity: 0.4;
-    }
-    100% {
-        opacity: 0.2;
-    }
+.resume-image-container {
+    flex: 1; /* Allow the image container to grow */
+    overflow: auto; /* Add scrolling if needed */
+    margin-bottom: 0; /* Remove bottom margin */
+    display: flex;
+    align-items: flex-start; /* Align image to the top */
+    justify-content: center;
 }
