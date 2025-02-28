@@ -286,6 +286,15 @@ nav ul li a[href="blog.html"].active {
 h1, h2, h3 {
     color: var(--text-color);
     font-weight: 600;
+    margin-top: 1.2em;
+    margin-bottom: 0.4em; /* Reduced space below headings */
+}
+
+/* First heading in a container gets less top margin */
+.container > h1:first-child,
+.container > h2:first-child,
+.container > h3:first-child {
+    margin-top: 0.5em;
 }
 
 /* Page-specific heading colors */
@@ -293,6 +302,12 @@ h1, h2, h3 {
 .resume-page h1, .resume-page h2, .resume-page h3 { color: var(--resume-accent); }
 .projects-page h1, .projects-page h2, .projects-page h3 { color: var(--projects-accent); }
 .blog-page h1, .blog-page h2, .blog-page h3 { color: var(--blog-accent); }
+
+/* Page-specific strong element colors */
+.home-page strong { color: var(--home-accent); }
+.resume-page strong { color: var(--resume-accent); }
+.projects-page strong { color: var(--projects-accent); }
+.blog-page strong { color: var(--blog-accent); }
 
 /* For emoji consistency */
 .emoji {
@@ -304,6 +319,12 @@ h1, h2, h3 {
 .no-break {
     white-space: nowrap;
     color: var(--text-secondary);
+}
+
+/* Paragraph spacing - reduced space before paragraphs */
+p {
+    margin-top: 0.5em;
+    margin-bottom: 1em;
 }
 
 p, li {
