@@ -1,5 +1,5 @@
 ---
-Grant Oxford
+title: "Grant Oxford"
 ---
 
 # Grant Oxford
