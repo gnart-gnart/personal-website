@@ -18,10 +18,21 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Pandoc
-        run: sudo apt-get install -y pandoc
+        run: sudo apt-get update && sudo apt-get install -y pandoc
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
 
       - name: Build HTML from Markdown
         run: bash scripts/build.sh
+
+      - name: Inject Sidebar Navigation
+        run: node scripts/inject-sidebar.js
+
+      - name: Create .nojekyll file
+        run: touch build/.nojekyll
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
@@ -30,6 +41,9 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: build/
+
+      - name: Create CNAME
+        run: echo "grantoxford.com" > build/CNAME
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
