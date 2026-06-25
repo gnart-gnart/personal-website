@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grant Oxford</title>
+<style>
+body{
+background:rgb(3, 24, 12);
+position: relative;
+font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+color:seashell;
+margin:0;
+padding:2rem 1rem;
+font-size:1.5rem;
+}
+body::before {
+content: "";
+position: fixed;
+inset: 0;
+background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+opacity: 0.07;
+pointer-events: none;
+z-index: 1;
+}
+header{max-width:720px;margin:0 auto;display:flex;justify-content:flex-end;gap:0.75rem;position:relative;z-index:2;}
+header a{
+font-family:'Courier New', Courier, monospace;
+font-size:1rem;
+color:seashell;
+text-decoration:none;
+padding:0.5rem 1rem;
+transition:background 0.2s ease, color 0.2s ease;
+}
+header a:hover{text-decoration:underline;}
+main{max-width:720px;margin:0 auto;text-align:left;}
+h1{font-family:'Courier New', Courier, monospace;font-size:4rem;}
+h2{font-family:'Courier New', Courier, monospace;font-size:2rem;margin-top:2.5rem;margin-bottom:1rem;border-bottom:1px solid seashell;padding-bottom:0.5rem;}
+p{margin:1.5rem 0;}
+table{width:100%;margin:1rem 0;border-collapse:collapse;}
+td{padding:0.5rem 0;vertical-align:middle;}
+td:last-child{text-align:right;}
+.stars{color:gold;}
+</style>
+</head>
+<body>
+<header>
+<a target="_blank" href="https://github.com/gnart-gnart">GitHub</a>
+<a target="_blank" href="https://linkedin.com/in/grantoxford">LinkedIn</a>
+</header>
+<main>
+<p>Howdy, my name is</p>
+<h1>Grant Oxford.</h1>
+<p>I'm a software engineer with interests in cloud computing, IT infrastructure, and object-oriented programming.
+    I graduated from Texas A&M in 2025 with a bachelor's degree in Computing and have worked at Paycom building enterprise software.
+    I enjoy solving difficult problems, striving for excellence, and collaborating with others.</p>
+<h2>Languages</h2>
+<table>
+<tr>
+<td>C/C++</td>
+<td><span class="stars">★★★★★</span></td>
+</tr>
+<tr>
+<td>C#</td>
+<td><span class="stars">★★★★★</span></td>
+</tr>
+<tr>
+<td>Java</td>
+<td><span class="stars">★★★★☆</span></td>
+</tr>
+<tr>
+<td>JavaScript/TS</td>
+<td><span class="stars">★★★★☆</span></td>
+</tr>
+<tr>
+<td>Python</td>
+<td><span class="stars">★★★★☆</span></td>
+</tr>
+<td>Bash</td>
+<td><span class="stars">★★★★☆</span></td>
+</tr>
+</table>
+<h2>Frameworks & APIs</h2>
+<p>Selenium, React, Node, Django, JavaFX, JUnit</p>
+<h2>Tools</h2>
+<p>Git, VSCode, GCP, AWS, Cursor, Claude Code, Gemini, Godot, Unity</p>
+</main>
+</body>
+</html>
