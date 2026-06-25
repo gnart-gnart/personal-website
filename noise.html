@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noise — Grant Oxford</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+.player{display:flex;flex-direction:column;gap:1.5rem;margin-top:2rem;}
+.row{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+.row label{min-width:7rem;}
+button.toggle{
+font-family:inherit;
+font-size:1.1rem;
+color:seashell;
+background:transparent;
+border:1px solid seashell;
+border-radius:4px;
+padding:0.6rem 1.5rem;
+cursor:pointer;
+transition:background 0.2s ease, color 0.2s ease;
+}
+button.toggle:hover{background:seashell;color:rgb(24, 15, 3);}
+button.toggle[aria-pressed="true"]{background:seashell;color:rgb(24, 15, 3);}
+input[type="range"]{flex:1;min-width:150px;accent-color:seashell;}
+select{
+font-family:inherit;
+font-size:1rem;
+color:seashell;
+background:rgb(24, 15, 3);
+border:1px solid seashell;
+border-radius:4px;
+padding:0.4rem 0.6rem;
+}
+</style>
+</head>
+<body>
+<header>
+<a target="_blank" href="index.html">Home</a>
+</header>
+<main>
+<h1>Noise.</h1>
+<p>A simple noise generator for studying or focus. Pick a color of noise, set the volume, and press play. Everything runs in your browser — nothing is recorded or uploaded.</p>
+<div class="player">
+<div class="row">
+<label for="noise-type">Noise type</label>
+<select id="noise-type">
+<option value="white">White</option>
+<option value="pink" selected>Pink</option>
+<option value="brown">Brown</option>
+</select>
+</div>
+<div class="row">
+<label for="volume">Volume</label>
+<input type="range" id="volume" min="0" max="1" step="0.01" value="0.5">
+</div>
+<div class="row">
+<button class="toggle" id="play-btn" aria-pressed="false">Play</button>
+</div>
+</div>
+</main>
+<script>
+let audioCtx = null;
+let noiseNode = null;
+let gainNode = null;
+let isPlaying = false;
+
+const playBtn = document.getElementById('play-btn');
+const typeSelect = document.getElementById('noise-type');
+const volumeSlider = document.getElementById('volume');
+
+function makeNoiseBuffer(ctx, type) {
+  const bufferSize = ctx.sampleRate * 2;
+  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+
+  if (type === 'white') {
+    for (let i = 0; i < bufferSize; i++) {
+      data[i] = Math.random() * 2 - 1;
+    }
+  } else if (type === 'pink') {
+    let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+    for (let i = 0; i < bufferSize; i++) {
+      const white = Math.random() * 2 - 1;
+      b0 = 0.99886 * b0 + white * 0.0555179;
+      b1 = 0.99332 * b1 + white * 0.0750759;
+      b2 = 0.96900 * b2 + white * 0.1538520;
+      b3 = 0.86650 * b3 + white * 0.3104856;
+      b4 = 0.55000 * b4 + white * 0.5329522;
+      b5 = -0.7616 * b5 - white * 0.0168980;
+      const pink = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362;
+      b6 = white * 0.115926;
+      data[i] = pink * 0.11;
+    }
+  } else if (type === 'brown') {
+    let last = 0;
+    for (let i = 0; i < bufferSize; i++) {
+      const white = Math.random() * 2 - 1;
+      const brown = (last + 0.02 * white) / 1.02;
+      last = brown;
+      data[i] = brown * 3.5;
+    }
+  }
+
+  return buffer;
+}
+
+function start() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  if (audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+
+  const buffer = makeNoiseBuffer(audioCtx, typeSelect.value);
+  noiseNode = audioCtx.createBufferSource();
+  noiseNode.buffer = buffer;
+  noiseNode.loop = true;
+
+  gainNode = audioCtx.createGain();
+  gainNode.gain.value = parseFloat(volumeSlider.value);
+
+  noiseNode.connect(gainNode);
+  gainNode.connect(audioCtx.destination);
+  noiseNode.start(0);
+
+  isPlaying = true;
+  playBtn.textContent = 'Stop';
+  playBtn.setAttribute('aria-pressed', 'true');
+}
+
+function stop() {
+  if (noiseNode) {
+    noiseNode.stop();
+    noiseNode.disconnect();
+    noiseNode = null;
+  }
+  isPlaying = false;
+  playBtn.textContent = 'Play';
+  playBtn.setAttribute('aria-pressed', 'false');
+}
+
+playBtn.addEventListener('click', () => {
+  if (isPlaying) {
+    stop();
+  } else {
+    start();
+  }
+});
+
+typeSelect.addEventListener('change', () => {
+  if (isPlaying) {
+    stop();
+    start();
+  }
+});
+
+volumeSlider.addEventListener('input', () => {
+  if (gainNode) {
+    gainNode.gain.value = parseFloat(volumeSlider.value);
+  }
+});
+</script>
+</body>
+</html>
