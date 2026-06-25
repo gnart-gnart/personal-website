@@ -6,32 +6,24 @@
 <title>Noise — Grant Oxford</title>
 <link rel="stylesheet" href="styles.css">
 <style>
-.player{display:flex;flex-direction:column;gap:1.5rem;margin-top:2rem;}
-.row{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
-.row label{min-width:7rem;}
-button.toggle{
-font-family:inherit;
-font-size:1.1rem;
-color:seashell;
+.player{display:flex;flex-direction:column;align-items:center;gap:1.5rem;margin:2.5rem 0;}
+.play-circle{
+width:9rem;
+height:9rem;
+border-radius:50%;
+border:2px solid seashell;
 background:transparent;
-border:1px solid seashell;
-border-radius:4px;
-padding:0.6rem 1.5rem;
+color:seashell;
+font-family:inherit;
+font-size:1.2rem;
 cursor:pointer;
 transition:background 0.2s ease, color 0.2s ease;
 }
-button.toggle:hover{background:seashell;color:rgb(24, 15, 3);}
-button.toggle[aria-pressed="true"]{background:seashell;color:rgb(24, 15, 3);}
-input[type="range"]{flex:1;min-width:150px;accent-color:seashell;}
-select{
-font-family:inherit;
-font-size:1rem;
-color:seashell;
-background:rgb(24, 15, 3);
-border:1px solid seashell;
-border-radius:4px;
-padding:0.4rem 0.6rem;
-}
+.play-circle:hover{background:seashell;color:rgb(24, 15, 3);}
+.play-circle[aria-pressed="true"]{background:seashell;color:rgb(24, 15, 3);}
+input[type="range"]{width:240px;accent-color:seashell;}
+.citation{font-size:1rem;opacity:0.8;border-top:1px solid seashell;padding-top:1rem;margin-top:2rem;}
+.citation a{color:seashell;}
 </style>
 </head>
 <body>
@@ -40,69 +32,104 @@ padding:0.4rem 0.6rem;
 </header>
 <main>
 <h1>Noise.</h1>
-<p>A simple noise generator for studying or focus. Pick a color of noise, set the volume, and press play. Everything runs in your browser — nothing is recorded or uploaded.</p>
+<p>This brown noise uses a 40hz binaural gamma tone to induce a focused mental state. This tone is a popular choice for studying or deep work. Headphones required for your brain to perceive the binaural effect.</p>
 <div class="player">
-<div class="row">
-<label for="noise-type">Noise type</label>
-<select id="noise-type">
-<option value="white">White</option>
-<option value="pink" selected>Pink</option>
-<option value="brown">Brown</option>
-</select>
+<button class="play-circle" id="play-btn" aria-pressed="false">Play</button>
+<input type="range" id="volume" min="0" max="1" step="0.01" value="0.5" aria-label="Volume">
 </div>
-<div class="row">
-<label for="volume">Volume</label>
-<input type="range" id="volume" min="0" max="1" step="0.01" value="0.5">
-</div>
-<div class="row">
-<button class="toggle" id="play-btn" aria-pressed="false">Play</button>
-</div>
-</div>
+<p>This audio is generated locally using the Web Audio API.</p>
+<p class="citation">Inspired by <a target="_blank" href="https://www.youtube.com/watch?v=Irh_rqw8yUs">this YouTube video</a>'s brown noise + 40Hz gamma binaural concept. Audio on this page is independently synthesized, not extracted from that recording.</p>
 </main>
 <script>
 let audioCtx = null;
 let noiseNode = null;
-let gainNode = null;
+let noiseFilter = null;
+let roomConvolver = null;
+let leftOsc = null;
+let rightOsc = null;
+let leftHarmonic = null;
+let rightHarmonic = null;
+let noiseGain = null;
+let toneGain = null;
+let masterGain = null;
 let isPlaying = false;
 
 const playBtn = document.getElementById('play-btn');
-const typeSelect = document.getElementById('noise-type');
 const volumeSlider = document.getElementById('volume');
 
-function makeNoiseBuffer(ctx, type) {
-  const bufferSize = ctx.sampleRate * 2;
+// --- Tunable parameters ---
+// Carrier frequency: the base pitch of the binaural tones (Hz).
+// Lower values (~80-150Hz) sound deep and full; higher values (~200Hz+) sound thinner/whistle-like.
+const CARRIER_HZ = 120;
+// Beat frequency: the difference between the two ears. 40Hz = gamma (alert/focus).
+const BEAT_HZ = 40;
+// Relative mix levels (0 to 1) before the master volume slider is applied.
+// TONE_LEVEL is intentionally close to NOISE_LEVEL so the tone stands out
+// as a distinct, audible layer rather than a buried texture.
+const NOISE_LEVEL = 2.5;
+const TONE_LEVEL = 0.3;
+// Adds a quiet second harmonic (2x the carrier) to each tone so it sounds
+// rounder/fuller instead of a thin clinical sine. 0 = off, 0.15-0.3 = subtle warmth.
+const HARMONIC_MIX = 0.2;
+// Seconds to fade the tone in from silence when play is pressed.
+const FADE_IN_SECONDS = 0.8;
+
+// Lowpass cutoff for the brown noise (Hz). Lower = darker/smoother/duller.
+// The raw noise generator still has some high-frequency edge; this filters
+// it out so it sounds soft rather than crackly.
+const NOISE_LOWPASS_HZ = 300;
+// Length of the simulated room's decay tail (seconds). Longer = bigger/more
+// cavernous room. 1.5-3s feels like a chamber; under 1s feels tighter/drier.
+const ROOM_DECAY_SECONDS = 2.2;
+// How much of the "room" reflection to mix in vs. the direct/dry noise.
+// 0 = no room effect (dry), 1 = fully wet. 0.3-0.5 is a noticeable but
+// natural-sounding chamber feel.
+const ROOM_MIX = 0.6;
+
+function makeBrownNoiseBuffer(ctx) {
+  // 20 seconds is long enough that the slow, wandering character of brown
+  // noise doesn't feel like it's visibly repeating.
+  const duration = 20;
+  const bufferSize = ctx.sampleRate * duration;
   const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
   const data = buffer.getChannelData(0);
+  let last = 0;
+  for (let i = 0; i < bufferSize; i++) {
+    const white = Math.random() * 2 - 1;
+    const brown = (last + 0.02 * white) / 1.02;
+    last = brown;
+    data[i] = brown * 3.5;
+  }
 
-  if (type === 'white') {
-    for (let i = 0; i < bufferSize; i++) {
-      data[i] = Math.random() * 2 - 1;
-    }
-  } else if (type === 'pink') {
-    let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
-    for (let i = 0; i < bufferSize; i++) {
-      const white = Math.random() * 2 - 1;
-      b0 = 0.99886 * b0 + white * 0.0555179;
-      b1 = 0.99332 * b1 + white * 0.0750759;
-      b2 = 0.96900 * b2 + white * 0.1538520;
-      b3 = 0.86650 * b3 + white * 0.3104856;
-      b4 = 0.55000 * b4 + white * 0.5329522;
-      b5 = -0.7616 * b5 - white * 0.0168980;
-      const pink = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362;
-      b6 = white * 0.115926;
-      data[i] = pink * 0.11;
-    }
-  } else if (type === 'brown') {
-    let last = 0;
-    for (let i = 0; i < bufferSize; i++) {
-      const white = Math.random() * 2 - 1;
-      const brown = (last + 0.02 * white) / 1.02;
-      last = brown;
-      data[i] = brown * 3.5;
-    }
+  // Crossfade the last ~1.5s into the first ~1.5s so the loop point has no
+  // audible seam/click — without this, a hard loop can sound like a subtle
+  // tick or pattern every time it repeats.
+  const crossfadeSamples = Math.floor(ctx.sampleRate * 1.5);
+  for (let i = 0; i < crossfadeSamples; i++) {
+    const fadeOut = 1 - i / crossfadeSamples;
+    const fadeIn = i / crossfadeSamples;
+    const tailIndex = bufferSize - crossfadeSamples + i;
+    data[tailIndex] = data[tailIndex] * fadeOut + data[i] * fadeIn;
   }
 
   return buffer;
+}
+
+function makeRoomImpulseResponse(ctx) {
+  // A synthetic "room" impulse response: exponentially decaying noise.
+  // Convolving the dry noise with this smears it slightly over time, the
+  // same way reflections off walls would in a real room, giving a sense
+  // of size/space rather than sounding right up against your ear.
+  const length = Math.floor(ctx.sampleRate * ROOM_DECAY_SECONDS);
+  const impulse = ctx.createBuffer(2, length, ctx.sampleRate);
+  for (let channel = 0; channel < 2; channel++) {
+    const data = impulse.getChannelData(channel);
+    for (let i = 0; i < length; i++) {
+      const decay = Math.pow(1 - i / length, 2.5);
+      data[i] = (Math.random() * 2 - 1) * decay;
+    }
+  }
+  return impulse;
 }
 
 function start() {
@@ -113,29 +140,124 @@ function start() {
     audioCtx.resume();
   }
 
-  const buffer = makeNoiseBuffer(audioCtx, typeSelect.value);
+  masterGain = audioCtx.createGain();
+  masterGain.gain.value = parseFloat(volumeSlider.value);
+  masterGain.connect(audioCtx.destination);
+
+  // Brown noise bed, routed through:
+  //   1. A lowpass filter to soften harsh high frequencies (smoother)
+  //   2. A dry/wet split where the "wet" side goes through a convolver
+  //      simulating a room's reflections (fuller, more spacious)
+  noiseGain = audioCtx.createGain();
+  noiseGain.gain.value = NOISE_LEVEL;
+
   noiseNode = audioCtx.createBufferSource();
-  noiseNode.buffer = buffer;
+  noiseNode.buffer = makeBrownNoiseBuffer(audioCtx);
   noiseNode.loop = true;
 
-  gainNode = audioCtx.createGain();
-  gainNode.gain.value = parseFloat(volumeSlider.value);
+  noiseFilter = audioCtx.createBiquadFilter();
+  noiseFilter.type = 'lowpass';
+  noiseFilter.frequency.value = NOISE_LOWPASS_HZ;
 
-  noiseNode.connect(gainNode);
-  gainNode.connect(audioCtx.destination);
+  const dryGain = audioCtx.createGain();
+  dryGain.gain.value = 1 - ROOM_MIX;
+
+  const wetGain = audioCtx.createGain();
+  wetGain.gain.value = ROOM_MIX;
+
+  roomConvolver = audioCtx.createConvolver();
+  roomConvolver.buffer = makeRoomImpulseResponse(audioCtx);
+
+  noiseNode.connect(noiseFilter);
+  noiseFilter.connect(dryGain);
+  noiseFilter.connect(roomConvolver);
+  roomConvolver.connect(wetGain);
+  dryGain.connect(noiseGain);
+  wetGain.connect(noiseGain);
+  noiseGain.connect(masterGain);
   noiseNode.start(0);
 
+  // Binaural tones: one oscillator per ear, panned hard left/right.
+  // Each ear also gets a quiet second harmonic (an octave up) mixed in,
+  // which rounds out the thin "pure sine" sound into something fuller.
+  toneGain = audioCtx.createGain();
+  toneGain.gain.value = 0; // start silent, fade in below
+  toneGain.connect(masterGain);
+
+  const leftPan = audioCtx.createStereoPanner();
+  leftPan.pan.value = -1;
+  leftPan.connect(toneGain);
+
+  leftOsc = audioCtx.createOscillator();
+  leftOsc.type = 'sine';
+  leftOsc.frequency.value = CARRIER_HZ;
+  const leftFundamentalGain = audioCtx.createGain();
+  leftFundamentalGain.gain.value = 1 - HARMONIC_MIX;
+  leftOsc.connect(leftFundamentalGain);
+  leftFundamentalGain.connect(leftPan);
+
+  leftHarmonic = audioCtx.createOscillator();
+  leftHarmonic.type = 'sine';
+  leftHarmonic.frequency.value = CARRIER_HZ * 2;
+  const leftHarmonicGain = audioCtx.createGain();
+  leftHarmonicGain.gain.value = HARMONIC_MIX;
+  leftHarmonic.connect(leftHarmonicGain);
+  leftHarmonicGain.connect(leftPan);
+
+  const rightPan = audioCtx.createStereoPanner();
+  rightPan.pan.value = 1;
+  rightPan.connect(toneGain);
+
+  rightOsc = audioCtx.createOscillator();
+  rightOsc.type = 'sine';
+  rightOsc.frequency.value = CARRIER_HZ + BEAT_HZ;
+  const rightFundamentalGain = audioCtx.createGain();
+  rightFundamentalGain.gain.value = 1 - HARMONIC_MIX;
+  rightOsc.connect(rightFundamentalGain);
+  rightFundamentalGain.connect(rightPan);
+
+  rightHarmonic = audioCtx.createOscillator();
+  rightHarmonic.type = 'sine';
+  rightHarmonic.frequency.value = (CARRIER_HZ + BEAT_HZ) * 2;
+  const rightHarmonicGain = audioCtx.createGain();
+  rightHarmonicGain.gain.value = HARMONIC_MIX;
+  rightHarmonic.connect(rightHarmonicGain);
+  rightHarmonicGain.connect(rightPan);
+
+  leftOsc.start(0);
+  leftHarmonic.start(0);
+  rightOsc.start(0);
+  rightHarmonic.start(0);
+
+  // Fade the tone in smoothly rather than snapping on at full volume.
+  const now = audioCtx.currentTime;
+  toneGain.gain.linearRampToValueAtTime(TONE_LEVEL, now + FADE_IN_SECONDS);
+
   isPlaying = true;
-  playBtn.textContent = 'Stop';
+  playBtn.textContent = 'Pause';
   playBtn.setAttribute('aria-pressed', 'true');
 }
 
 function stop() {
-  if (noiseNode) {
-    noiseNode.stop();
-    noiseNode.disconnect();
-    noiseNode = null;
-  }
+  [noiseNode, leftOsc, rightOsc, leftHarmonic, rightHarmonic].forEach(node => {
+    if (node) {
+      node.stop();
+      node.disconnect();
+    }
+  });
+  [noiseFilter, roomConvolver].forEach(node => {
+    if (node) {
+      node.disconnect();
+    }
+  });
+  noiseNode = null;
+  noiseFilter = null;
+  roomConvolver = null;
+  leftOsc = null;
+  rightOsc = null;
+  leftHarmonic = null;
+  rightHarmonic = null;
+
   isPlaying = false;
   playBtn.textContent = 'Play';
   playBtn.setAttribute('aria-pressed', 'false');
@@ -149,16 +271,9 @@ playBtn.addEventListener('click', () => {
   }
 });
 
-typeSelect.addEventListener('change', () => {
-  if (isPlaying) {
-    stop();
-    start();
-  }
-});
-
 volumeSlider.addEventListener('input', () => {
-  if (gainNode) {
-    gainNode.gain.value = parseFloat(volumeSlider.value);
+  if (masterGain) {
+    masterGain.gain.value = parseFloat(volumeSlider.value);
   }
 });
 </script>
