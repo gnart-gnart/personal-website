@@ -12,17 +12,39 @@
             <a href="index.html" class="nav-brand">Grant Oxford</a>
             <div class="nav-links">
                 <a href="projects.html" class="nav-button">Projects</a>
-                <a href="reviews.html" class="nav-button">Book Reviews</a>
+                <a href="career.html" class="nav-button">Career</a>
+                <a href="articles.html" class="nav-button">Articles</a>
                 <a href="links.html" class="nav-button">Links</a>
             </div>
         </nav>
         <main>
             <h1>Projects</h1>
-            <ul>
-                <li><a href="project-alpha.html">Project Alpha: Data Visualization System</a></li>
-                <li><a href="project-beta.html">Project Beta: Automated Home Server</a></li>
-                <li><a href="project-gamma.html">Project Gamma: Legacy Code Refactoring</a></li>
-            </ul>
+            <div class="project-list">
+                <div class="project-row">
+                    <img class="project-image" src="project-alpha.svg" alt="DNS Sinkhole">
+                    <div class="project-info">
+                        <h2><a href="project-alpha.html" target="_blank">DNS Sinkhole on Raspberry Pi 4</a></h2>
+                        <p>Configured a Raspberry Pi 4 as a network-wide DNS sinkhole that blocks ads and malicious domains for every device connected over Tailscale, set up entirely over SSH.</p>
+                        <a class="see-more" href="project-alpha.html" target="_blank">See more</a>
+                    </div>
+                </div>
+                <div class="project-row">
+                    <img class="project-image" src="project-beta.svg" alt="Automated Home Server">
+                    <div class="project-info">
+                        <h2><a href="project-beta.html" target="_blank">Automated Home Server</a></h2>
+                        <p>Built and maintain a home server running several self-hosted services with automated backups and monitoring.</p>
+                        <a class="see-more" href="project-beta.html" target="_blank">See more</a>
+                    </div>
+                </div>
+                <div class="project-row">
+                    <img class="project-image" src="project-gamma.svg" alt="Legacy Code Refactoring">
+                    <div class="project-info">
+                        <h2><a href="project-gamma.html" target="_blank">Legacy Code Refactoring</a></h2>
+                        <p>Refactored a legacy production codebase at Paycom, improving maintainability and test coverage without disrupting existing functionality.</p>
+                        <a class="see-more" href="project-gamma.html" target="_blank">See more</a>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 </body>

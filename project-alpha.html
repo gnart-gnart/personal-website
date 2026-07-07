@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Alpha - Grant Oxford</title>
+    <title>DNS Sinkhole on Raspberry Pi 4 - Grant Oxford</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,13 +12,32 @@
             <a href="index.html" class="nav-brand">Grant Oxford</a>
             <div class="nav-links">
                 <a href="projects.html" class="nav-button">Projects</a>
-                <a href="reviews.html" class="nav-button">Book Reviews</a>
+                <a href="career.html" class="nav-button">Career</a>
+                <a href="articles.html" class="nav-button">Articles</a>
                 <a href="links.html" class="nav-button">Links</a>
             </div>
         </nav>
         <main>
-            <h1>Project Alpha</h1>
-            <p>This project involved designing a full-scale data visualization architecture to monitor real-time server metrics across distributed systems.</p>
+            <h1>DNS Sinkhole on Raspberry Pi 4</h1>
+            <img class="project-hero" src="project-alpha.svg" alt="DNS Sinkhole">
+
+            <h2>Overview</h2>
+            <p>I run a DNS sinkhole on a Raspberry Pi 4 that blocks ads, trackers, and known malicious domains for every device on my network. The Pi sits on my LAN and is also reachable over my Tailscale virtual VPN, so devices get the same filtering whether they're on my home network or out on the road.</p>
+
+            <h2>Setup</h2>
+            <p>I flashed Raspberry Pi OS Lite (headless, no desktop environment) to a microSD card and did the entire setup remotely over SSH from my main machine. Key steps included:</p>
+            <ul>
+                <li>Assigning the Pi a static local IP so it would reliably serve as the network's DNS server.</li>
+                <li>Installing and configuring Pi-hole as the DNS sinkhole, pointing it at upstream DNS-over-HTTPS resolvers for privacy.</li>
+                <li>Subscribing Pi-hole to several curated blocklists covering ads, trackers, and malicious/phishing domains, and tuning them to avoid breaking legitimate services.</li>
+                <li>Installing Tailscale on the Pi and enabling it to advertise itself as a DNS server on the tailnet, so any device joined to my Tailscale network uses the sinkhole automatically.</li>
+                <li>Configuring my home router's DHCP to hand out the Pi's IP as the primary DNS server for devices on the LAN.</li>
+                <li>Hardening SSH access (key-based auth, disabled password login) since the Pi is reachable remotely via Tailscale.</li>
+            </ul>
+
+            <h2>Result</h2>
+            <p>Every device on my home network, and every device I connect to my tailnet from anywhere, resolves DNS through the sinkhole. This blocks the large majority of ad and tracking requests before they ever leave the network, and flags/blocks lookups to domains known to serve malware or run phishing campaigns.</p>
+
             <a href="projects.html">Back to Projects</a>
         </main>
     </div>
