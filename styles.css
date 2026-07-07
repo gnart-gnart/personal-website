@@ -1,34 +1,70 @@
-body{
-background:rgb(24, 15, 3);
-position: relative;
-font-family: 'Georgia', 'Times New Roman', Times, serif;
-color:seashell;
-margin:0;
-padding:2rem 1rem;
-font-size:1.5rem;
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: #fdfcfb;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.04"/></svg>');
+    color: #222;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    overflow-x: hidden;
 }
-body::before {
-content: "";
-position: fixed;
-inset: 0;
-background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-opacity: 0.07;
-pointer-events: none;
-z-index: 1;
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px 20px;
 }
-header{max-width:720px;margin:0 auto;display:flex;justify-content:flex-end;gap:0.75rem;position:relative;z-index:2;}
-header a{
-color:seashell;
-text-decoration:none;
-padding:0.5rem 1rem;
-transition:background 0.2s ease, color 0.2s ease;
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Courier New', Courier, monospace;
+    text-decoration: underline;
+    margin-bottom: 20px;
 }
-header a:hover{text-decoration:underline;}
-main{max-width:720px;margin:0 auto;text-align:left;}
-h1{font-size:4rem;}
-h2{font-size:2rem;margin-top:2.5rem;margin-bottom:1rem;border-bottom:1px solid seashell;padding-bottom:0.5rem;}
-p{margin:1.5rem 0;}
-table{width:100%;margin:1rem 0;border-collapse:collapse;}
-td{padding:0.5rem 0;vertical-align:middle;}
-td:last-child{text-align:right;}
-.stars{color:gold;}
+
+p, li {
+    line-height: 1.6;
+}
+
+a {
+    color: #333;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    margin-bottom: 40px;
+}
+
+.nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    text-decoration: none;
+    color: #111;
+}
+
+.nav-links {
+    display: flex;
+    gap: 15px;
+}
+
+.nav-button {
+    text-decoration: none;
+    color: #111;
+    padding: 8px 16px;
+    border: 1px solid #111;
+    background-color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.nav-button:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
+}
