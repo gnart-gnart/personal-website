@@ -72,23 +72,22 @@ nav {
 .timeline {
     display: flex;
     flex-direction: column;
-    max-width: 550px;
-    margin: 0 auto;
+    align-items: center;
 }
 
 .timeline-entry {
-    display: flex;
-    align-items: flex-start;
-    gap: 15px;
+    position: relative;
+    width: 100%;
+    max-width: 500px;
 }
 
 .timeline-block {
-    flex: 1;
     background-color: #fff;
     border: 1px solid #111;
     border-radius: 14px;
     padding: 15px 20px;
     box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.8);
+    text-align: left;
 }
 
 .timeline-block h3 {
@@ -102,8 +101,11 @@ nav {
 }
 
 .timeline-date {
-    flex-shrink: 0;
-    padding-top: 18px;
+    position: absolute;
+    left: 100%;
+    top: 18px;
+    margin-left: 15px;
+    white-space: nowrap;
     font-family: 'Courier New', Courier, monospace;
     font-weight: 700;
 }
@@ -115,9 +117,19 @@ nav {
 }
 
 .timeline-goal {
-    text-align: center;
-    max-width: 450px;
-    margin: 10px auto 0;
+    text-align: left;
+    max-width: 500px;
+    width: 100%;
+    margin: 10px 0 0;
+}
+
+@media (max-width: 480px) {
+    .timeline-date {
+        position: static;
+        margin-left: 0;
+        display: block;
+        margin-top: 6px;
+    }
 }
 
 .project-row {
