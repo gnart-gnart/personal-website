@@ -1,11 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
 
+:root {
+    --background: #0b0f14;
+    --text-primary: #f0f6fc;
+    --text-muted: #d4e3f0;
+    --link: #9be7a0;
+    --surface-primary: rgba(3, 4, 6, 0.8);
+    --surface-secondary: rgba(3, 4, 6, 0.8);
+    --surface-muted: #0b0f14;
+    --surface-hover: #1b242f;
+    --border: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.15);
+    --border-muted: rgba(255, 255, 255, 0.04);
+}
+
 body {
     font-family: 'Nunito', sans-serif;
-    background-color: #0b0f14;
-    /* subtle light noise texture over dark background */
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" fill="%23fff" opacity="0.02"/></svg>');
-    color: #f0f6fc;
+    background-color: var(--background);
+    color: var(--text-primary);
     margin: 0;
     padding: 0;
     position: relative;
@@ -29,7 +41,7 @@ p, li {
 }
 
 a {
-    color: #9be7a0;
+    color: var(--link);
 }
 
 nav {
@@ -38,15 +50,15 @@ nav {
     align-items: center;
     padding: 20px 25px 20px 25px;
     margin-bottom: 40px;
-    background-color: rgba(20, 27, 36, 0.8);
-    border: 1px solid rgba(255,255,255,0.08);
+    background-color: var(--surface-primary);
+    border: 1px solid var(--border);
 }
 
 .nav-brand {
     font-family: 'Playfair Display', serif;
     font-size: 1.8rem;
     text-decoration: none;
-    color: #ffffff;
+    color: var(--text-primary);
 }
 
 .nav-links {
@@ -56,10 +68,10 @@ nav {
 
 .nav-button {
     text-decoration: none;
-    color: #f0f6fc;
+    color: var(--text-primary);
     padding: 8px 16px;
-    border: 1px solid rgba(255,255,255,0.15);
-    background-color: rgba(255,255,255,0.03);
+    border: 1px solid var(--border-strong);
+    background-color: var(--surface-muted);
     font-family: 'Nunito', sans-serif;
     font-weight: 700;
     font-size: 0.9rem;
@@ -71,7 +83,7 @@ nav {
 .nav-button:hover {
     transform: none;
     box-shadow: none;
-    background-color: rgba(255,255,255,0.04);
+    background-color: var(--surface-hover);
 }
 
 .timeline {
@@ -87,8 +99,8 @@ nav {
 }
 
 .timeline-block {
-    background-color: rgba(255,255,255,0.02);
-    border: 1px solid rgba(255,255,255,0.04);
+    background-color: var(--surface-muted);
+    border: 1px solid var(--border-muted);
     border-radius: 14px;
     padding: 15px 20px;
     box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.6);
@@ -102,7 +114,7 @@ nav {
 .timeline-desc {
     margin: 12px 0 0;
     padding-top: 12px;
-    border-top: 1px solid rgba(255,255,255,0.04);
+    border-top: 1px solid var(--border);
 }
 
 .timeline-date {
@@ -142,16 +154,10 @@ nav {
     align-items: center;
     gap: 25px;
     padding: 25px;
-    background-color: rgba(20, 27, 36, 0.4);
     margin: 0;
 }
 
-.project-row:nth-child(odd) {
-    background-color: rgba(255,255,255,0.02);
-}
-
 .project-row:nth-child(even) {
-    background-color: rgba(255,255,255,0.01);
     flex-direction: row-reverse;
 }
 
@@ -160,7 +166,7 @@ nav {
     height: 125px;
     object-fit: cover;
     border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.08);
+    border: 1px solid var(--border);
     flex-shrink: 0;
 }
 
@@ -170,16 +176,16 @@ nav {
 
 /* thin outlines for main blocks (MDN-like) */
 main {
-    border: 1px solid rgba(255,255,255,0.08);
+    border: 1px solid var(--border);
     border-radius: 0;
-    background-color: rgba(20, 27, 36, 0.6);
+    background-color: var(--surface-secondary);
     padding: 25px;
 }
 
 /* keep images rounded */
 img {
     border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.08);
+    border: 1px solid var(--border);
 }
 
 .see-more {
@@ -195,7 +201,7 @@ img {
     border-radius: 8px;
     object-fit: cover;
     object-position: center center;
-    border: 1px solid rgba(255,255,255,0.08);
+    border: 1px solid var(--border);
 }
 
 @media (max-width: 600px) {
@@ -217,7 +223,7 @@ img {
 .image-caption {
     text-align: center;
     font-style: italic;
-    color: #d4e3f0;
+    color: var(--text-muted);
     margin-top: 8px;
     font-size: 0.95rem;
 }
