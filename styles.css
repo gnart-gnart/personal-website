@@ -172,3 +172,27 @@ nav {
     display: block;
     margin-bottom: 20px;
 }
+
+/* Article image and caption styles */
+.article-image {
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.image-caption {
+    text-align: center;
+    font-style: italic;
+    color: #555;
+    margin-top: 8px;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 600px) {
+    .article-image {
+        width: 100%;
+    }
+}
