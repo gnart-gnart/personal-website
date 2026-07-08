@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Edge Firewall & VLAN Segmentation - Grant Oxford</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="index.html" class="nav-brand">Grant Oxford</a>
+            <div class="nav-links">
+                <a href="projects.html" class="nav-button">Projects</a>
+                <a href="career.html" class="nav-button">Career</a>
+                <a href="articles.html" class="nav-button">Articles</a>
+                <a href="links.html" class="nav-button">Links</a>
+            </div>
+        </nav>
+        <main>
+            <h1>Enterprise Edge Firewall &amp; VLAN Segmentation (Home Lab)</h1>
+            <img class="project-hero" src="project-firewall.svg" alt="pfSense and VLANs">
+
+            <h2>Why I built this</h2>
+            <p>I've been working through the CCNA, and there's only so much you can learn from flashcards and packet tracer labs before it stops sticking. I wanted a real network to break and fix, so I set out to build something closer to what you'd actually find in a small office: a dedicated firewall doing routing between VLANs instead of one flat network where everything can see everything else. The goal wasn't really "I need this for security" so much as "I need to actually do this with my hands to understand it."</p>
+
+            <h2>What I built</h2>
+            <p>The core of it is pfSense, an open-source firewall/router platform, running as a VM instead of on dedicated hardware. I gave it multiple virtual network interfaces and had it handle DHCP, routing, and stateful packet inspection for the whole lab instead of just leaving that to my ISP's router. Once pfSense was routing traffic, I split the network into VLANs using 802.1Q trunking:</p>
+            <ul>
+                <li>A management VLAN for infrastructure devices like the firewall itself and any switches/APs I'm configuring.</li>
+                <li>A guest VLAN that can reach the internet but nothing else on the network.</li>
+                <li>An IoT VLAN to keep smart home and other low-trust devices away from my main devices.</li>
+            </ul>
+            <p>Each VLAN gets its own subnet, and pfSense enforces firewall rules between them, so, for example, a device on the IoT VLAN can't just start talking to something on the management VLAN even though they're on the "same" physical network.</p>
+
+            <h2>How I did it</h2>
+            <p>I ran pfSense virtualized rather than on a physical box, mainly so I could snapshot it and not worry about bricking anything while I experimented. The trickiest part honestly wasn't pfSense itself, it was the trunking: getting a single physical/virtual link to correctly carry tagged traffic for multiple VLANs and making sure the interfaces on the pfSense side matched up with the VLAN IDs on the switch side. I broke connectivity more than once by mixing up a tagged and untagged port, which turned out to be a pretty good way to actually learn how 802.1Q works instead of just memorizing it for an exam.</p>
+            <p>After the VLANs were routing correctly, I went back through and wrote firewall rules per VLAN, starting from "block everything" and only opening up the specific traffic each segment actually needed, rather than starting wide open and trying to lock things down after the fact.</p>
+
+            <h2>What I learned</h2>
+            <p>The biggest thing was just how much of networking is about trust boundaries, not just connectivity. It's easy to get every device on the internet; it's a different problem to make sure devices that don't need to talk to each other, can't. Doing this hands-on also made concepts like trunking, inter-VLAN routing, and default-deny firewall rules click in a way that reading about them for the CCNA never quite did. It's also just made me a lot more comfortable troubleshooting network issues in general, since I've now spent real time staring at the pfSense logs trying to figure out why a rule wasn't matching the way I expected.</p>
+
+            <a href="projects.html">Back to Projects</a>
+        </main>
+    </div>
+</body>
+</html>
