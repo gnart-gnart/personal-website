@@ -5,7 +5,7 @@ body {
     background-color: #0b0f14;
     /* subtle light noise texture over dark background */
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" fill="%23fff" opacity="0.02"/></svg>');
-    color: #e6eef8;
+    color: #f0f6fc;
     margin: 0;
     padding: 0;
     position: relative;
@@ -29,22 +29,24 @@ p, li {
 }
 
 a {
-    color: #9ec7ff;
+    color: #9be7a0;
 }
 
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 20px;
+    padding: 20px 25px 20px 25px;
     margin-bottom: 40px;
+    background-color: rgba(20, 27, 36, 0.8);
+    border: 1px solid rgba(255,255,255,0.08);
 }
 
 .nav-brand {
     font-family: 'Playfair Display', serif;
     font-size: 1.8rem;
     text-decoration: none;
-    color: #e6eef8;
+    color: #ffffff;
 }
 
 .nav-links {
@@ -54,20 +56,22 @@ nav {
 
 .nav-button {
     text-decoration: none;
-    color: #e6eef8;
+    color: #f0f6fc;
     padding: 8px 16px;
-    border: 1px solid rgba(255,255,255,0.06);
-    background-color: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.15);
+    background-color: rgba(255,255,255,0.03);
     font-family: 'Nunito', sans-serif;
     font-weight: 700;
     font-size: 0.9rem;
-    transition: all 0.18s ease;
+    transition: background-color 0.12s ease;
     cursor: pointer;
+    border-radius: 0;
 }
 
 .nav-button:hover {
-    transform: translate(-3px, -3px);
-    box-shadow: 4px 4px 0px rgba(255,255,255,0.04);
+    transform: none;
+    box-shadow: none;
+    background-color: rgba(255,255,255,0.04);
 }
 
 .timeline {
@@ -138,6 +142,8 @@ nav {
     align-items: center;
     gap: 25px;
     padding: 25px;
+    background-color: rgba(20, 27, 36, 0.4);
+    margin: 0;
 }
 
 .project-row:nth-child(odd) {
@@ -154,11 +160,26 @@ nav {
     height: 125px;
     object-fit: cover;
     border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.08);
     flex-shrink: 0;
 }
 
 .project-info h2 {
     margin-bottom: 8px;
+}
+
+/* thin outlines for main blocks (MDN-like) */
+main {
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 0;
+    background-color: rgba(20, 27, 36, 0.6);
+    padding: 25px;
+}
+
+/* keep images rounded */
+img {
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.08);
 }
 
 .see-more {
@@ -174,6 +195,7 @@ nav {
     border-radius: 8px;
     object-fit: cover;
     object-position: center center;
+    border: 1px solid rgba(255,255,255,0.08);
 }
 
 @media (max-width: 600px) {
@@ -195,7 +217,7 @@ nav {
 .image-caption {
     text-align: center;
     font-style: italic;
-    color: #cbd5e1;
+    color: #d4e3f0;
     margin-top: 8px;
     font-size: 0.95rem;
 }
