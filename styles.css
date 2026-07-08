@@ -167,10 +167,18 @@ nav {
 
 .project-hero {
     width: 100%;
-    max-width: 400px;
-    border-radius: 8px;
+    height: 260px;
     display: block;
     margin-bottom: 20px;
+    border-radius: 8px;
+    object-fit: cover;
+    object-position: center center;
+}
+
+@media (max-width: 600px) {
+    .project-hero {
+        height: 160px;
+    }
 }
 
 /* Article image and caption styles */
