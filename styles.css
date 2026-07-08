@@ -73,19 +73,19 @@ nav {
 
 @keyframes gradientFlow {
     0% {
-        background-position: 0% 0%;
+        background-position: -15% 0%;
     }
     25% {
         background-position: 30% 15%;
     }
     50% {
-        background-position: 100% 50%;
+        background-position: 115% 50%;
     }
     75% {
         background-position: 70% 15%;
     }
     100% {
-        background-position: 0% 0%;
+        background-position: -15% 0%;
     }
 }
 
