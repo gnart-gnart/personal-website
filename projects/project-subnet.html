@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPv4 Subnetting & Network Planning CLI - Grant Oxford</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div class="container">
+        <main>
+            <a class="back-link" href="index.html">&lt;&lt; Back to Projects</a>
+            <h1>IPv4 Subnetting &amp; Network Planning CLI (Python)</h1>
+            <img class="project-hero" src="img/subnet-cli-example.png" alt="Terminal showing Python CLI Subnet output">
+
+            <h2>Why I built this</h2>
+            <p>
+                I'm studying for the CCNA, and Subnetting is a HUGE part of the exam.
+                Knowing how to figure out network boundaries, valid host ranges, and broadcast/network addresses
+                is essential if you want to pass. With this project, I put the formulas for those calculations
+                into code so that I can run this script anytime to double check my work.
+                It's also a proof-of-concept for my ability to write Python scripts and my understanding
+                of subnetting math.
+            </p>
+            <p>
+                <img class="image" src="img/subnet-by-hand.png" alt="Subnet math diagram">
+                <div class="image-caption">Subnetting calculations by hand</div>
+            </p>
+
+            <h2>What I built</h2>
+            <p>I developed a command-line utility in Python that displays the network topology details
+                for a given IPv4 address and CIDR notation. The script returns:</p>
+            <ul>
+                <li>Detected IP Class (A-E or classless)</li>
+                <li>The Subnet Mask in dotted decimal format (e.g., <code>255.255.255.192</code>).</li>
+                <li>The Network Address and Broadcast Address.</li>
+                <li>The usable IP range for hosts, and total number of available hosts.</li>
+                <li>The number of available subnets given the class.</li>
+            </ul>
+            <p>It acts as a lightweight, fast capacity planning tool that can be run from any terminal, which is exactly the kind of automation script a systems administrator would use on a daily basis.</p>
+
+            <h2>How I did it</h2>
+            <p>The easy way to build this in Python would be to just import the built-in <code>ipaddress</code> module, which does all 
+                the heavy lifting automatically. However, since the goal was to learn, I intentionally chose <strong>not</strong> to use it. 
+                Instead, I built the logic from scratch using bitwise operations. At a high level, it's similar to how I do the math by hand.</p>
+                <p>The source code is available on <a href="https://github.com/gnart-gnart/subnet-cli" target="_blank">GitHub</a>.</p>
+            <h2>What I learned</h2>
+            <p>This project solidified my understanding of IPv4 architecture.
+                Using bitwise logic to calculate the network and broadcast addresses 
+                helped me understand how subnet masks actually work at a low-level.</p>
+
+            <a href="index.html">&lt;&lt; Back to Projects</a>
+        </main>
+    </div>
+</body>
+</html>
